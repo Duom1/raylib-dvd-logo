@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <raylib.h>
+#include <stdio.h>
 
 int main() {
   Vector2 screen = {1200, 800},
@@ -22,11 +22,11 @@ int main() {
     /* DrawTexture(dvd_logo, cube_position.x, cube_position.y, RAYWHITE); */
     EndDrawing();
 
-    if (IsKeyDown(KEY_F1))
+    if (IsKeyPressed(KEY_F1))
       SetTargetFPS(30);
-    if (IsKeyDown(KEY_F2))
+    if (IsKeyPressed(KEY_F2))
       SetTargetFPS(120);
-    if (IsKeyDown(KEY_F3))
+    if (IsKeyPressed(KEY_F3))
       SetTargetFPS(500);
 
     dt = GetFrameTime();
@@ -40,11 +40,10 @@ int main() {
     if (x % xo == 0) {
       x = 0;
       current_fps = GetFPS();
-      sprintf(
-          info,
-          "fps: %d | x:%0.2f y:%0.2f | velocity x:%0.2f y:%0.2f | dt=%f",
-          current_fps, cube_position.x, cube_position.y, cube_velocity.x,
-          cube_velocity.y, dt);
+      sprintf(info,
+              "fps: %d | x:%0.2f y:%0.2f | velocity x:%0.2f y:%0.2f | dt=%f",
+              current_fps, cube_position.x, cube_position.y, cube_velocity.x,
+              cube_velocity.y, dt);
       SetWindowTitle(info);
     }
     x++;
