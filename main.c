@@ -4,7 +4,7 @@
 int main() {
   Vector2 screen = {1200, 800},
           cube_position = {(float)screen.x / 2 - 20, (float)screen.y / 2 - 20},
-          cube_size = {100, 200}, cube_velocity = {300.0f, 300.0f};
+          cube_size = {100, 200}, cube_velocity = {400.0f, 400.0f};
   float dt;
   char info[500];
   int current_fps, xo = 100, x = xo;
@@ -14,7 +14,7 @@ int main() {
   ImageResize(&dvd_image, cube_size.y, cube_size.x);
   Texture2D dvd_logo = LoadTextureFromImage(dvd_image);
   UnloadImage(dvd_image);
-  SetTargetFPS(500);
+  SetTargetFPS(9999999);
 
   while (!WindowShouldClose()) {
 
@@ -29,12 +29,26 @@ int main() {
       SetTargetFPS(120);
     if (IsKeyPressed(KEY_F3))
       SetTargetFPS(500);
+    if (IsKeyPressed(KEY_F4))
+      SetTargetFPS(9999999);
 
     dt = GetFrameTime();
-    if (cube_position.y >= screen.y - cube_size.x || cube_position.y <= 0)
+    if (cube_position.y >= screen.y - cube_size.x) {
       cube_velocity.y *= -1;
-    if (cube_position.x >= screen.x - cube_size.y || cube_position.x <= 0)
+      cube_position.y = screen.y - cube_size.x;
+    }
+    if (cube_position.y <= 0) {
+      cube_velocity.y *= -1;
+      cube_position.y = 0;
+    }
+    if (cube_position.x >= screen.x - cube_size.y) {
       cube_velocity.x *= -1;
+      cube_position.x = screen.x - cube_size.y;
+    }
+    if (cube_position.x <= 0) {
+      cube_velocity.x *= -1;
+      cube_position.x = 0;
+    }
     cube_position.x += cube_velocity.x * dt;
     cube_position.y += cube_velocity.y * dt;
 
